@@ -1,0 +1,12 @@
+# private
+_private/
+
+# env
+.env
+
+# modules
+node_modules/
+
+# other
+_notes.md
+package-lock.json
