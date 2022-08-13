@@ -16,6 +16,7 @@ app.use(
 );
 
 app.use(express.json());
+
 // ... EXTRA SECURITY
 const helmet = require("helmet");
 app.use(helmet());
@@ -31,7 +32,13 @@ const swaggerDocument = YAML.load("./swagger.yaml");
 
 // app.get("/", (req, res) => res.send("Jobs API"));
 // ... LOAD DOCS TO index.html instead of "Jobs API"
-app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+var options = {
+  customCss: ".swagger-ui .topbar { display: none }",
+  customSiteTitle: "Node.js | Jobs API",
+  customfavIcon: "favicon.ico",
+};
+
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument, options));
 
 // ... MIDDLEWARE
 const AuthenticateUser = require("./middleware/authentication");
