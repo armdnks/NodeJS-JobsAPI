@@ -24,10 +24,17 @@ app.use(cors());
 const xss = require("xss-clean");
 app.use(xss());
 
+// ... SWAGGER
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+
+// app.get("/", (req, res) => res.send("Jobs API"));
+// ... LOAD DOCS TO index.html instead of "Jobs API"
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 // ... MIDDLEWARE
 const AuthenticateUser = require("./middleware/authentication");
-
-app.get("/", (req, res) => res.send("Jobs API"));
 
 // ... ROUTES
 const AuthRoutes = require("./routes/auth-routes");
